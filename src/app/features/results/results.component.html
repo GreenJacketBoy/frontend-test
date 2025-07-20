@@ -3,18 +3,20 @@
   @for (result of resultsArray(); track $index) {
 
 
-    <div>
+    <div class="result">
       <div class="image">
-        <img src="{{ result.image_url }}" alt="">
+        <img src="{{ result.image_url }}" alt="{{ result.name }}">
         <div class="shadow"></div>
       </div>
 
       <div class="name-and-address">
-        <span>{{ result.name }}</span>
-        <span>{{ result.address }}</span>
+        <span class="name"> <b>{{ result.name }}</b></span>
+        <span class="address">{{ result.address }}</span>
       </div>
 
-      <a href="{{ `https://livemap.getwemap.com/#/pinpoints/${result.id}` }}" target="_blank"> Voir sur la carte</a>
+      <div class="map-link-container">
+        <a class="map-link" href="{{ `https://livemap.getwemap.com/#/pinpoints/${result.id}` }}" target="_blank"> Voir sur la carte</a>
+      </div>
     </div>
   }
   

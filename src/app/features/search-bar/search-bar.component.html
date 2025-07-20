@@ -1,9 +1,9 @@
-<input type="text" placeholder="Recherche..." (input)="setQuery($event)">
+<input class="search-bar" type="text" placeholder="Recherche..." (input)="setQuery($event)">
 
 <app-results [resultsArray]="searchResultsArray()"></app-results>
 
 <div>
-  <button class="previous" (click)="changePage('previous')"><</button>
+  <button class="change-page previous" (click)="changePage('previous')"><</button>
   <span>Page {{ (offset() / 10) + 1 }}</span>
-  <button class="next" (click)="changePage('next')">></button>
+  <button class="change-page next" (click)="changePage('next')">></button>
 </div>

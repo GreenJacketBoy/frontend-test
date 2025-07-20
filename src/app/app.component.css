@@ -1,0 +1,24 @@
+
+.main-title {
+  display: flex;
+  width: 60%;
+}
+
+.main-title > img {
+  height: auto;
+  width: 4em;
+  margin-right: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}

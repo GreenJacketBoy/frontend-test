@@ -1,0 +1,21 @@
+
+.search-bar {
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  border: none;
+  border-radius: 5px;
+}
+
+app-results {
+  width: 100%;
+}
+
+.change-page {
+  border: none;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin: 0.5em;
+  padding: 1em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}
