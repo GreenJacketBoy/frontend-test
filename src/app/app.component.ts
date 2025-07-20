@@ -11,7 +11,4 @@ import { SearchBar } from './features/search-bar/search-bar.component';
 
 export class App {
   protected title = 'frontend-test';
-
-  // constructor(private searchBar: SearchBar) {
-  // }
 }

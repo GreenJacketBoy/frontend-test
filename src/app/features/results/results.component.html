@@ -1,0 +1,22 @@
+<div class="results">
+
+  @for (result of resultsArray(); track $index) {
+
+
+    <div>
+      <div class="image">
+        <img src="{{ result.image_url }}" alt="">
+        <div class="shadow"></div>
+      </div>
+
+      <div class="name-and-address">
+        <span>{{ result.name }}</span>
+        <span>{{ result.address }}</span>
+      </div>
+
+      <a href="{{ `https://livemap.getwemap.com/#/pinpoints/${result.id}` }}" target="_blank"> Voir sur la carte</a>
+    </div>
+  }
+  
+</div>
+

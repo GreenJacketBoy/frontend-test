@@ -1,29 +1,48 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
+import { Results } from '../results/results.component';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [],
+  imports: [Results],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
 
 export class SearchBar {
 
-  private offset = signal(0);
+  protected offset = signal(0);
   private query = signal('');
-  private _searchResultsArray = signal([]);
-  public searchResultsArray = computed(() => this._searchResultsArray);
+  private timeout: NodeJS.Timeout | undefined = undefined;
+
+  public searchResultsArray = signal<Array<any>>([]);
   
   constructor () {
-    effect(() => this.updateResults(this.query(), this.offset()));
+    // update the page when the query or offset is changed 
+    effect(() => {
+      // looks like angular doesn't see the signals nested in the timeout function as dependencies so, yeah
+      this.query();
+      this.offset();
+      
+      // keeps at least 1s between page update
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        this.updateResults(this.query(), this.offset());
+      }
+      , 1000);
+    });
   }
 
   setQuery(event: Event) {
-    this.query.set((event.target as HTMLInputElement).value);    
+    this.query.set((event.target as HTMLInputElement).value)
+    // personal choice here, feel like it's better to reset the page index when the query updates
+    this.offset.set(0);
   }
 
-  setOffset(offset: number) {
-    this.offset.set(offset);
+  changePage(mode: 'previous' | 'next') {
+    if (mode === 'previous' && this.offset() >= 10)
+      this.offset.set(this.offset() - 10);
+    else if (mode === 'next')
+      this.offset.set(this.offset() + 10);
   }
 
   /**
@@ -37,8 +56,7 @@ export class SearchBar {
     result.then((response) => {
       response.json().then((json) => {
 
-        this._searchResultsArray.set(json.results)
-        console.log(json.results);
+        this.searchResultsArray.set(json.results);
       });
     });
   }
