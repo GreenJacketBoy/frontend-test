@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 7em;
+  min-height: 7em;
   min-width: 100%;
 }
 
@@ -37,6 +37,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 1em;
+  min-height: min-content;
 }
 
 .name {
@@ -50,6 +51,7 @@
   padding-bottom: 0.5em;
   margin-left: auto;
   border-radius: 5px;
+  min-width: max-content;
 }
 
 .map-link {

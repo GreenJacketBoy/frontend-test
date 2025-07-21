@@ -19,3 +19,7 @@ app-results {
   padding-top: 0.4em;
   padding-bottom: 0.4em;
 }
+
+.spread-div {
+  width: 95vw;
+}
