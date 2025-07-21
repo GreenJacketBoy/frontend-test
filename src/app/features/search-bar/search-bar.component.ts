@@ -19,23 +19,19 @@ export class SearchBar {
   constructor () {
     // update the page when the query or offset is changed 
     effect(() => {
-      // looks like angular doesn't see the signals nested in the timeout function as dependencies so, yeah
-      this.query();
-      this.offset();
-      
-      // keeps at least 1s between page update
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        this.updateResults(this.query(), this.offset());
-      }
-      , 1000);
+      this.updateResults(this.query(), this.offset());
     });
   }
 
-  setQuery(event: Event) {
-    this.query.set((event.target as HTMLInputElement).value)
-    // personal choice here, feel like it's better to reset the page index when the query updates
-    this.offset.set(0);
+  setQuery(event: Event) {      
+    // keeps at least 750ms between page update from text input (instant when it's from page change)
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+
+      this.query.set((event.target as HTMLInputElement).value)
+      // personal choice here, feel like it's better to reset the page index when the query updates
+      this.offset.set(0);
+    }, 750);
   }
 
   changePage(mode: 'previous' | 'next') {
