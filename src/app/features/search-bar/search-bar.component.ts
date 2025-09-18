@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { AfterViewInit, Component, effect, signal } from '@angular/core';
 import { Results } from '../results/results.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { Results } from '../results/results.component';
   styleUrl: './search-bar.component.css'
 })
 
-export class SearchBar {
+export class SearchBar implements AfterViewInit {
 
   protected offset = signal(0);
   private query = signal('');
@@ -22,6 +22,12 @@ export class SearchBar {
       this.updateResults(this.query(), this.offset());
     });
   }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+    // query.set(recup(cookiebyid(search)))
+  }
+
+  
 
   setQuery(event: Event) {      
     // keeps at least 750ms between page update from text input (instant when it's from page change)
@@ -46,14 +52,19 @@ export class SearchBar {
    * @param query 
    * @param offset 
    */
-  updateResults(query: string, offset: number) {
+  async updateResults(query: string, offset: number) {
     const result: Promise<Response> = fetch(`https://api.getwemap.com/v3.0/pinpoints/search?format=json&limit=10&offset=${offset}&query=${query}`);
     
+    console.log(1);
+    // set cookie(id='search', contenu=query)
+
     result.then((response) => {
       response.json().then((json) => {
-
+        console.log(2);
         this.searchResultsArray.set(json.results);
       });
     });
+    console.log(3);
+    
   }
 }
